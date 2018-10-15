@@ -27,7 +27,7 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        bat "winscp scp:ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps /privatekey=/Users/raugray/Downloads/tomcat-demo.ppk /upload **/target/*.war"
+                        bat "echo y|pscp -i \"C:/Users/raugray/Downloads/tomcat-demo.ppk\" \"C:/Program Files (x86)/Jenkins/workspace/FullyAutomated/webapp/target/*.war\" ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps"
                     }
                 }
 
