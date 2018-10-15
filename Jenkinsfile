@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        bat /script="winscp sftp:ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps /privatekey=/Users/raugray/Downloads/tomcat-demo.ppk /upload **/target/*.war"
+                        bat "winscp scp:ec2-user@${params.tomcat_dev}:/var/lib/tomcat7/webapps /privatekey=/Users/raugray/Downloads/tomcat-demo.ppk /upload **/target/*.war"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        bat "scp -i /home/jenkins/tomcat-demo.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
+                        bat "pscp -i /home/jenkins/tomcat-demo.ppk **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat7/webapps"
                     }
                 }
             }
